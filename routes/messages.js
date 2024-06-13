@@ -5,3 +5,5 @@ import { getMessages } from '../controllers/messages-controller.js'
 const messagesRouter = express.Router()
 
 messagesRouter.get('/:from', validateToken, getMessages)
+
+export default messagesRouter

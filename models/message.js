@@ -15,7 +15,7 @@ const MessageSchema = new Schema({
         type: String,
         required: true
     },
-    timestamps: true
+
 })
 
 MessageSchema.method('toJSON', function(){

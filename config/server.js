@@ -1,7 +1,7 @@
 import express from "express"
 import Http from "http"
 import dotenv from "dotenv"
-import socketio from 'socket.io'
+import { Server as IoServer}  from "socket.io"
 import { dbConnection } from "./db.js"
 import authRouter from "../routes/auth.js"
 import messagesRouter from "../routes/messages.js"
@@ -15,7 +15,7 @@ class Server {
         this.httpServer = Http.createServer(this.app)
         this.authRouter = authRouter
         this.messagesRouter = messagesRouter
-        this.io = socketio(this.httpServer)
+        this.io = new IoServer(this.httpServer)
 
         dbConnection()
     }
