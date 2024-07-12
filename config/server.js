@@ -6,6 +6,7 @@ import { dbConnection } from "./db.js"
 import authRouter from "../routes/auth.js"
 import messagesRouter from "../routes/messages.js"
 import Socket from "./socket.js"
+import cors from 'cors'
 
 dotenv.config({ path: ".env" })
 class Server {
@@ -21,6 +22,8 @@ class Server {
     }
 
     middlewares(){
+
+        this.app.use(cors())
         this.app.use(express.json())
         this.app.use('/api/auth/', this.authRouter)
         this.app.use('/api/messages/', this.messagesRouter)

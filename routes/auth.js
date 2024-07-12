@@ -6,7 +6,7 @@ import { validateToken } from "../middleware/validate-token.js";
 
 const authRouter = express.Router()
 
-authRouter.post('/login/new-user',[
+authRouter.post('/login/new',[
     body('email', 'The email is required').isEmail(),
     body('password','Password is required').not().isEmpty(),
     body('name','Name is required').not().isEmpty()
