@@ -10,7 +10,7 @@ const getMessages = async (req, res) => {
             { from: messageFrom, to: ownId }
         ]
     })
-    .sort({createdAt: 'desc'})
+    .sort({createdAt: 'asc'})
     .limit(30)
 
     res.json({

@@ -1,4 +1,4 @@
-import { userConnected, userDisconnected } from "../controllers/sockets-controller.js";
+import { getUsers, setMessage, userConnected, userDisconnected } from "../controllers/sockets-controller.js";
 import { validateToken } from "../helpers/jwt.js";
 
 class Socket {
@@ -20,21 +20,21 @@ class Socket {
                 }
 
                 await userConnected(uid)
-                //TODO: validate JWT
 
-                //TODO: Identifiy user by uid
+                socket.join(uid)
 
-                //TODO: Emit all users online
+                this.io.emit('list-users', await getUsers(uid))
 
-                //TODO: Socket join, uid
-
-                //TODO: Listen when the client send a message
-
+                socket.on('personal-message', async (payload) => {
+                    const message = await setMessage(payload)
+                    this.io.to(payload.to).emit('personal-message', message)
+                    this.io.to(payload.from).emit('personal-message', message)
+                })
                 //TODO: Disconnect
 
-                //TODO: Emit all users offline
                 socket.on('disconnect', async () => {
                     await userDisconnected(uid)
+                    this.io.emit('list-users', await getUsers(uid))
                 })
             })
 

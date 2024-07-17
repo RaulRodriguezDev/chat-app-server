@@ -16,13 +16,14 @@ const MessageSchema = new Schema({
         required: true
     },
 
-})
+
+},{timestamps: true})
 
 MessageSchema.method('toJSON', function(){
     const { __v, ...object } = this.toObject()
     return object
 })
 
-const message = model('Message', MessageSchema)
+const Message = model('Message', MessageSchema)
 
-export default message
+export default Message
